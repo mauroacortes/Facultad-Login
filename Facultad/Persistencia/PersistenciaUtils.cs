@@ -9,7 +9,7 @@ namespace Facultad.Persistencia
 {
     public class PersistenciaUtils
     {
-        string archivoCsv = @"C:\Users\p044755\Documents\GitHub\ejercicio01_Facultad\Facultad\Facultad\Datos\";
+        string archivoCsv = @"C:\Users\mauri\Downloads\ejercicio01_Facultad-01-Login\";
         public List<String> LeerRegistro(String nombreArchivo)
         {
             archivoCsv = archivoCsv + nombreArchivo; // Cambia esta ruta al archivo CSV que deseas leer
@@ -105,6 +105,54 @@ namespace Facultad.Persistencia
                 Console.WriteLine($"Pila de errores: {e.StackTrace}");
             }
         }
+
+        public void ActualizarPassword(string nombreArchivo, string usuario, string nuevaPassword)
+        {
+            string rutaArchivo = Path.Combine(archivoCsv, nombreArchivo);
+
+            try
+            {
+                // Leer todos los registros del archivo
+                List<string> registros = LeerRegistro(nombreArchivo);
+
+                // Crear una lista para almacenar los registros actualizados
+                List<string> registrosActualizados = new List<string>();
+
+                foreach (string registro in registros)
+                {
+                    // Suponiendo que el formato del archivo es "usuario;password;fechaRegistro;ultimaFechaIngreso"
+                    string[] partes = registro.Split(';');
+                    if (partes.Length >= 4)
+                    {
+                        string usuarioArchivo = partes[0].Trim();
+
+                        // Si el usuario coincide, actualizar la contraseña
+                        if (usuarioArchivo == usuario)
+                        {
+                            partes[1] = nuevaPassword; // Actualizar el segundo campo (contraseña)
+                        }
+
+                        // Reconstruir el registro actualizado y agregarlo a la lista
+                        registrosActualizados.Add(string.Join(";", partes));
+                    }
+                    else
+                    {
+                        // Si el registro no tiene el formato esperado, agregarlo sin cambios
+                        registrosActualizados.Add(registro);
+                    }
+                }
+
+                // Sobrescribir el archivo con los registros actualizados
+                File.WriteAllLines(rutaArchivo, registrosActualizados);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error al intentar actualizar la contraseña:");
+                Console.WriteLine($"Mensaje: {e.Message}");
+                Console.WriteLine($"Pila de errores: {e.StackTrace}");
+            }
+        }
+
 
     }
 }

@@ -33,6 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -53,6 +54,7 @@
     <Compile Include="Entidades\Empleado.cs" />
     <Compile Include="Entidades\Facultad.cs" />
     <Compile Include="Entidades\Persona.cs" />
+    <Compile Include="Entidades\Validador.cs" />
     <Compile Include="FormInicio.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -114,6 +116,8 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Microsoft\VisualBasic\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
